@@ -41,6 +41,11 @@ potentially be stored in browser history or server logs.
 # Get COVALENT_API_KEY from the user
 user_api_key = st.sidebar.text_input("Enter your COVALENT API KEY", "")
 
+# Get wallet address and chains from user
+wallet_input = st.text_input("**Enter wallets (separated by commas):**", '0xfc43f5f9dd45258b3aff31bdbe6561d97e8b71de , 0xdac17f958d2ee523a2206206994597c13d831ec7') # "0xf8c3527cc04340b208c854e985240c02f7b7793f")
+# Parse the wallets from the input
+wallets = [wallet.strip() for wallet in wallet_input.split(',')]
+
 # Check if user API key is provided
 if user_api_key:
     COVALENT_API_KEY = user_api_key
@@ -111,10 +116,7 @@ cadenas = ['eth-mainnet', 'bsc-mainnet', 'matic-mainnet', 'optimism-mainnet', 'a
 #carteras = ['0xfc43f5f9dd45258b3aff31bdbe6561d97e8b71de', '0xdac17f958d2ee523a2206206994597c13d831ec7']
 
 
-# Get wallet address and chains from user
-wallet_input = st.text_input("**Enter wallets (separated by commas):**", '0xfc43f5f9dd45258b3aff31bdbe6561d97e8b71de , 0xdac17f958d2ee523a2206206994597c13d831ec7') # "0xf8c3527cc04340b208c854e985240c02f7b7793f")
-# Parse the wallets from the input
-wallets = [wallet.strip() for wallet in wallet_input.split(',')]
+
 
 chain_names = st.multiselect('**Select Blockchains**', cadenas, 
                              default=cadenas)
@@ -220,5 +222,3 @@ if wallet_input:
             )
         },
         hide_index=True,)
-
-    
