@@ -41,6 +41,8 @@ potentially be stored in browser history or server logs.
 """
 st.sidebar.markdown(api_key_disclaimer)
 
+st.sidebar.image("Powered by Covalent_Stacked_Full.png", use_column_width=True)
+
 # Check if user API key is provided
 if user_api_key:
     COVALENT_API_KEY = user_api_key
