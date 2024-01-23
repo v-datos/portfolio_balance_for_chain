@@ -36,8 +36,6 @@ elif not st.session_state.get('first_run', True):
     st.sidebar.write("Please enter your COVALENT API KEY to re-run the page.")
     st.stop()
 
-st.session_state['first_run'] = False
-
 api_key_disclaimer = """
 Always Protect your API keys.
 
@@ -51,6 +49,8 @@ potentially be stored in browser history or server logs.
 st.sidebar.markdown(api_key_disclaimer)
 
 st.sidebar.image("Powered by Covalent_Stacked_Full.png", use_column_width=True)
+
+st.session_state['first_run'] = False
 
 # Define function to fetch the balances of given wallets from the Covalent API for multiple chains
 
