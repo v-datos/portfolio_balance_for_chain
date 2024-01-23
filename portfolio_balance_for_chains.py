@@ -30,6 +30,8 @@ COVALENT_API_KEY = os.getenv('COVALENT_API_KEY')
 user_api_key = st.sidebar.text_input("Enter your COVALENT API KEY", "")
 
 api_key_disclaimer = """
+Always Protect your API keys.
+
 Streamlit does not store the data entered into the app between runs, 
 so the user's API key won't be stored by Streamlit itself. 
 However, it's important to note that this method is not completely secure. 
