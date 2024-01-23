@@ -9,8 +9,6 @@ import plotly.express as px
 
 pd.options.display.float_format = '{:,.2f}'.format
 
-
-
 # Config
 st.set_page_config(page_title='Get Etherium Address Balance', page_icon=':bar_chart:', layout='centered',)
 
@@ -18,7 +16,7 @@ st.set_page_config(page_title='Get Etherium Address Balance', page_icon=':bar_ch
 st.title('Portfolio Balance')
 st.markdown('This app fetches the balances of given wallets from the Covalent API for multiple chains.')
 
-# Always protect your API keys,
+# Always protect your API keys!
 # load api key
 load_dotenv()
 # To run locally
@@ -26,12 +24,11 @@ COVALENT_API_KEY = os.getenv('COVALENT_API_KEY')
 # To run in Streamlit Sharing
 #COVALENT_API_KEY = st.secrets["COVALENT_API_KEY"]
 
-
 api_key_disclaimer = """
 Always Protect your API keys.
 
 Streamlit does not store the data entered into the app between runs, 
-so the user's API key won't be stored by Streamlit itself. 
+so the API key won't be stored by Streamlit itself. 
 However, it's important to note that this method is not completely secure. 
 The input is not masked, meaning that anyone looking at your 
 screen could see the API key. Additionally, the API key could 
@@ -43,9 +40,21 @@ user_api_key = st.sidebar.text_input("Enter your COVALENT API KEY", "")
 
 # Get wallet address and chains from user
 wallet_input = st.text_input("**Enter wallets (separated by commas):**", '0xfc43f5f9dd45258b3aff31bdbe6561d97e8b71de , 0xdac17f958d2ee523a2206206994597c13d831ec7') # "0xf8c3527cc04340b208c854e985240c02f7b7793f")
+
 # Parse the wallets from the input
 wallets = [wallet.strip() for wallet in wallet_input.split(',')]
 
+# Define list of chains and show sample-default wallets for user input 
+cadenas = ['eth-mainnet', 'bsc-mainnet', 'matic-mainnet', 'optimism-mainnet', 'avalanche-mainnet', 'arbitrum-mainnet']
+
+# Show the list of chains as a multiselect widget
+chain_names = st.multiselect('**Select Blockchains**', cadenas, 
+                             default=cadenas)
+
+if not chain_names:
+    st.write("No chain selected.")
+    st.stop()
+    
 # Check if user API key is provided
 if user_api_key:
     COVALENT_API_KEY = user_api_key
@@ -111,21 +120,8 @@ def get_wallets_balances_for_chains(walletAddresses, chains):
     return df
 
 
-# Define list of chains and show sample-default wallets for user input 
-cadenas = ['eth-mainnet', 'bsc-mainnet', 'matic-mainnet', 'optimism-mainnet', 'avalanche-mainnet', 'arbitrum-mainnet']
-#carteras = ['0xfc43f5f9dd45258b3aff31bdbe6561d97e8b71de', '0xdac17f958d2ee523a2206206994597c13d831ec7']
+# Call the function to fetch the balances for the given wallets and chains
 
-
-
-
-chain_names = st.multiselect('**Select Blockchains**', cadenas, 
-                             default=cadenas)
-
-if not chain_names:
-    st.write("No chain selected.")
-    st.stop()
-
-#@st.cache_data
 if wallet_input:
     data = get_wallets_balances_for_chains(wallets, chain_names)
     # Create a copy of the DataFrame
@@ -193,13 +189,8 @@ if wallet_input:
     fig.update_layout(autosize=True, title=f"Total Balance = ${total_portfolio_value:,.2f}", 
                       title_x=0.35, paper_bgcolor='rgb(230, 230, 250)')
 
-    # Show the chart
-    #fig.show()
-
     #Show plot in Streamlit
     st.plotly_chart(fig)
-
-
 
     # Get unique chains and add an "All" option
     chains = list(df['Chain'].unique())
