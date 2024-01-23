@@ -26,15 +26,6 @@ COVALENT_API_KEY = os.getenv('COVALENT_API_KEY')
 # To run in Streamlit Sharing
 #COVALENT_API_KEY = st.secrets["COVALENT_API_KEY"]
 
-# Get COVALENT_API_KEY from the user
-user_api_key = st.sidebar.text_input("Enter your COVALENT API KEY", "")
-
-# Check if user API key is provided
-if user_api_key:
-    COVALENT_API_KEY = user_api_key
-elif not st.session_state.get('first_run', True):
-    st.sidebar.write("Please enter your COVALENT API KEY to re-run the page.")
-    st.stop()
 
 api_key_disclaimer = """
 Always Protect your API keys.
@@ -46,9 +37,18 @@ The input is not masked, meaning that anyone looking at your
 screen could see the API key. Additionally, the API key could 
 potentially be stored in browser history or server logs.
 """
-st.sidebar.markdown(api_key_disclaimer)
 
-st.sidebar.image("Powered by Covalent_Stacked_Full.png", use_column_width=True)
+# Get COVALENT_API_KEY from the user
+user_api_key = st.sidebar.text_input("Enter your COVALENT API KEY", "")
+
+# Check if user API key is provided
+if user_api_key:
+    COVALENT_API_KEY = user_api_key
+elif not st.session_state.get('first_run', True):
+    st.sidebar.write("Please enter your COVALENT API KEY to re-run the page.")
+    st.sidebar.markdown(api_key_disclaimer)
+    st.sidebar.image("Powered by Covalent_Stacked_Full.png", use_column_width=True)
+    st.stop()
 
 st.session_state['first_run'] = False
 
