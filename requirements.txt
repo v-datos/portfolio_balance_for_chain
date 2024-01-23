@@ -1,6 +1,4 @@
 pandas
 streamlit
-os
-requests
 python-dotenv
 plotly
