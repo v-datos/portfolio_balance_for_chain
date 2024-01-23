@@ -144,8 +144,7 @@ if wallet_input:
     df = df[df['Value'] > 0.00]
     # Sort the values by value
     df = df.sort_values(by='Value', ascending=False)
-    # Format the values as dollars
-    df['Value'] = df['Value'].apply(lambda x: '${:,.2f}'.format(x))
+    
     # Create a new DataFrame where values less than 100 are grouped into 'Other'
     df_grouped = df.copy()
     df_grouped.loc[df['Value'] < 100, 'Coin'] = 'Other'
@@ -202,7 +201,8 @@ if wallet_input:
 
     # Create a selectbox for the chains
     selected_chain = st.selectbox('Select a Chain', chains)
-
+    # Format the values as dollars
+    df['Value'] = df['Value'].apply(lambda x: '${:,.2f}'.format(x))
     # Filter the DataFrame based on the selected chain
     if selected_chain != 'Total':
         filtered_df = df[df['Chain'] == selected_chain]
