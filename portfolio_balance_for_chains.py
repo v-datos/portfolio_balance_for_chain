@@ -187,7 +187,7 @@ if wallet_input:
 
     # Adjust the aspect ratio of the figure
     fig.update_layout(autosize=True, title=f"Total Balance = ${total_portfolio_value:,.2f}", 
-                      title_x=0.35, paper_bgcolor='rgb(230, 230, 250)')
+                      title_x=0.35, paper_bgcolor='#8644f7')
 
     #Show plot in Streamlit
     st.plotly_chart(fig)
