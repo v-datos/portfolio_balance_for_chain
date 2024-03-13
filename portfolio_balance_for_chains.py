@@ -39,7 +39,8 @@ potentially be stored in browser history or server logs.
 user_api_key = st.sidebar.text_input("Enter your COVALENT API KEY", "")
 
 # Get wallet address and chains from user
-wallet_input = st.text_input("**Enter wallets (separated by commas):**", '0xfc43f5f9dd45258b3aff31bdbe6561d97e8b71de , 0xdac17f958d2ee523a2206206994597c13d831ec7') # "0xf8c3527cc04340b208c854e985240c02f7b7793f")
+wallet_input = st.text_input("**Enter wallets (separated by commas):**", '0xfc43f5f9dd45258b3aff31bdbe6561d97e8b71de') 
+# 0xdac17f958d2ee523a2206206994597c13d831ec7', '0xf8c3527cc04340b208c854e985240c02f7b7793f'
 
 # Parse the wallets from the input
 wallets = [wallet.strip() for wallet in wallet_input.split(',')]
@@ -187,7 +188,7 @@ if wallet_input:
 
     # Adjust the aspect ratio of the figure
     fig.update_layout(autosize=True, title=f"Total Balance = ${total_portfolio_value:,.2f}", 
-                      title_x=0.35, paper_bgcolor='#8644f7')
+                      title_x=0.35, paper_bgcolor='#E6E0F8')
 
     #Show plot in Streamlit
     st.plotly_chart(fig)
